@@ -237,7 +237,7 @@ class ImprovedDailyReminderSystem:
         logger.info(f"  • Total participants checked: {len(participants)}")
         logger.info("=" * 70)
     
-    def start_scheduler(self, check_time="18:00", folder_name="Survey Uploads"):
+    def start_scheduler(self, check_time="01:00", folder_name="Survey Uploads"):
         """Start the daily scheduler."""
         logger.info(f"Daily check scheduled for: {check_time}")
         logger.info(f"Monitoring folder: {folder_name}")
@@ -260,8 +260,8 @@ def main():
         reminder_system = ImprovedDailyReminderSystem()
         
         # Configuration
-        check_time = "18:00"  # 6 PM daily check
-        folder_name = "Survey Uploads"  # Name of the Google Drive folder to monitor
+        check_time = "01:00"
+        folder_name = "Survey Uploads"
         
         # Start the scheduler
         reminder_system.start_scheduler(check_time, folder_name)
