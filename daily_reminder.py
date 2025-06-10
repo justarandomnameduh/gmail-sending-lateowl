@@ -81,10 +81,8 @@ class ImprovedDailyReminderSystem:
                 logger.info("Email credentials loaded from file")
         except FileNotFoundError:
             logger.error("gmail_credentials.txt not found!")
-            logger.error("Please create the file with your Gmail email and app password")
         except IndexError:
             logger.error("Invalid format in gmail_credentials.txt")
-            logger.error("File should have email on first line, app password on second line")
     
     def setup_google_services(self):
         """Setup Google Drive API service."""
@@ -241,28 +239,20 @@ class ImprovedDailyReminderSystem:
     
     def start_scheduler(self, check_time="18:00", folder_name="Survey Uploads"):
         """Start the daily scheduler."""
-        logger.info("🚀 Starting Daily Reminder System")
-        logger.info("=" * 50)
-        logger.info(f"⏰ Daily check scheduled for: {check_time}")
-        logger.info(f"📁 Monitoring folder: {folder_name}")
-        logger.info(f"📧 Email sender: {self.app.config['MAIL_DEFAULT_SENDER']}")
+        logger.info(f"Daily check scheduled for: {check_time}")
+        logger.info(f"Monitoring folder: {folder_name}")
+        logger.info(f"Email sender: {self.app.config['MAIL_DEFAULT_SENDER']}")
         logger.info("=" * 50)
         logger.info("Press Ctrl+C to stop the scheduler")
-        
         # Schedule the daily check
         schedule.every().day.at(check_time).do(self.run_daily_check, folder_name)
-        
-        # Uncomment to run immediately for testing
-        # logger.info("Running immediate test...")
-        # self.run_daily_check(folder_name)
-        
         # Keep the script running
         try:
             while True:
                 schedule.run_pending()
                 time.sleep(60)  # Check every minute
         except KeyboardInterrupt:
-            logger.info("\n🛑 Daily reminder scheduler stopped by user")
+            logger.info("\nDaily reminder scheduler stopped by user")
 
 def main():
     """Main function to run the daily reminder system."""
